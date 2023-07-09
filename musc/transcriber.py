@@ -2,8 +2,8 @@ from collections import defaultdict
 from typing import DefaultDict, Dict, List, Optional, Tuple
 import pretty_midi
 import numpy as np
-from tape.postprocessing import RegressionPostProcessor, spotify_create_notes
-from tape.pitch_estimator import PitchEstimator
+from musc.postprocessing import RegressionPostProcessor, spotify_create_notes
+from musc.pitch_estimator import PitchEstimator
 
 
 class Transcriber(PitchEstimator):
