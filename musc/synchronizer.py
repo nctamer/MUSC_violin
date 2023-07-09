@@ -1,7 +1,7 @@
-from tape.dtw.mrmsdtw import sync_via_mrmsdtw_with_anchors
-from tape.dtw.utils import make_path_strictly_monotonic
+from musc.dtw.mrmsdtw import sync_via_mrmsdtw_with_anchors
+from musc.dtw.utils import make_path_strictly_monotonic
 import numpy as np
-from tape.transcriber import Transcriber
+from musc.transcriber import Transcriber
 from typing import Dict
 
 class Synchronizer(Transcriber):
