@@ -219,7 +219,7 @@ class PretrainedModel(FourHeads):
         assert instrument in ['violin', 'Violin', 'vln', 'vl'], 'As of now, the only supported instrument is the violin'
         instrument = 'violin'
         package_dir = os.path.dirname(os.path.realpath(__file__))
-        with open(os.path.join(package_dir, "musc", instrument + ".json"), "r") as f:
+        with open(os.path.join(package_dir, instrument + ".json"), "r") as f:
             args = json.load(f)
         labeling = PerformanceLabel(note_min=args['note_low'], note_max=args['note_high'],
                                     f0_bins_per_semitone=args['f0_bins_per_semitone'],
