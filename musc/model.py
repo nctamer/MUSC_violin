@@ -214,7 +214,7 @@ class FourHeads(Synchronizer):
                 'offset': self.head(offset, 'offset')}
 
 
-class MUSC(FourHeads):
+class InferenceModel(FourHeads):
     def __init__(self, instrument='violin'):
         assert instrument in ['violin'], 'As of now, the only supported instrument is the violin'
         package_dir = os.path.dirname(os.path.realpath(__file__))
@@ -259,5 +259,5 @@ class MUSC(FourHeads):
             package_dir = os.path.dirname(os.path.realpath(__file__))
             weight_path = os.path.join(package_dir, weight_file)
             if not os.path.exists(weight_path):
-              gdown.download(f"https://drive.google.com/uc?export=download&confirm=pbef&id={self.model_url}", weight_path)
+                gdown.download(f"https://drive.google.com/uc?export=download&confirm=pbef&id={self.model_url}", weight_path)
             
