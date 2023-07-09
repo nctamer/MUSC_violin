@@ -1,6 +1,6 @@
-from tape.pathway import TinyPathway
-from tape.agent import AutonomousMusicAgent
-from tape.representations import PerformanceLabel
+from musc.pathway import TinyPathway
+from musc.agent import AutonomousMusicAgent
+from musc.representations import PerformanceLabel
 from torchaudio.models.conformer import ConformerLayer
 import torch
 from torch import nn
