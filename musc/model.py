@@ -217,6 +217,7 @@ class FourHeads(Synchronizer):
 class PretrainedModel(FourHeads):
     def __init__(self, instrument='violin'):
         assert instrument in ['violin', 'Violin', 'vln', 'vl'], 'As of now, the only supported instrument is the violin'
+        instrument = 'violin'
         package_dir = os.path.dirname(os.path.realpath(__file__))
         with open(os.path.join(package_dir, "musc", instrument + ".json"), "r") as f:
             args = json.load(f)
