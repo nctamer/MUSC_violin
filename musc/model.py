@@ -1,5 +1,5 @@
 from musc.pathway import TinyPathway
-from musc.agent import AutonomousMusicAgent
+from musc.synchronizer import Synchronizer
 from musc.representations import PerformanceLabel
 from torchaudio.models.conformer import ConformerLayer
 import torch
@@ -7,7 +7,7 @@ from torch import nn
 import numpy as np
 
 
-class FourHeads(AutonomousMusicAgent):
+class FourHeads(Synchronizer):
     def __init__(
             self,
             pathway_multiscale: int = 32,
