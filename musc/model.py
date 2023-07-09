@@ -209,3 +209,52 @@ class FourHeads(Synchronizer):
                 'note': self.head(note, 'note'),
                 'onset': self.head(onset, 'onset'),
                 'offset': self.head(offset, 'offset')}
+
+
+class MUSC(FourHeads):
+    def __init__(self, instrument='violin'):
+        assert instrument in ['violin'], 'As of now, the only supported instrument is the violin'
+        package_dir = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(package_dir, "musc", instrument + ".json"), "r") as f:
+            args = json.load(f)
+        labeling = PerformanceLabel(note_min=args['note_low'], note_max=args['note_high'],
+                                    f0_bins_per_semitone=args['f0_bins_per_semitone'],
+                                    f0_tolerance_c=200,
+                                    f0_smooth_std_c=args['f0_smooth_std_c'], onset_smooth_std=args['onset_smooth_std'])
+
+        super().__init__(pathway_multiscale=args['pathway_multiscale'],
+                         num_pathway_layers=args['num_pathway_layers'], wiring=args['wiring'],
+                         num_seperator_layers=args['num_seperator_layers'],
+                         hop_length=args['hop_length'], chunk_size=args['chunk_size'],
+                         labeling=labeling, sr=args['sampling_rate'])
+        self.model_url = args['model_file']
+        self.load_weight(instrument)
+        self.eval()
+
+    def load_weight(self, instrument):
+        self.download_weights(instrument)
+        package_dir = os.path.dirname(os.path.realpath(__file__))
+        filename = "{}_model.pt".format(instrument)
+        self.load_state_dict(torch.load(os.path.join(package_dir, filename)))
+
+    def download_weights(self, instrument):
+        weight_file = "{}_model.pt".format(instrument)
+
+        # in all other cases, decompress the weights file if necessary
+        package_dir = os.path.dirname(os.path.realpath(__file__))
+        weight_path = os.path.join(package_dir, weight_file)
+        if not os.path.isfile(weight_path):
+            #try:
+            #    from urllib.request import urlretrieve
+            #except ImportError:
+            #    from urllib import urlretrieve
+            #print('Downloading weight file {} from {} ...'.format(weight_path, self.model_url))
+            #urlretrieve(self.model_url, weight_path)
+            #        weight_file = "{}_model.pt".format(instrument)
+
+            # in all other cases, decompress the weights file if necessary
+            package_dir = os.path.dirname(os.path.realpath(__file__))
+            weight_path = os.path.join(package_dir, weight_file)
+            if not os.path.exists(weight_path):
+              gdown.download(f"https://drive.google.com/uc?export=download&confirm=pbef&id={self.model_url}", weight_path)
+            
