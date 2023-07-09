@@ -8,7 +8,7 @@ import numpy as np
 import librosa
 from librosa.sequence import viterbi_discriminative
 from scipy.ndimage import gaussian_filter1d
-from tape.postprocessing import spotify_create_notes
+from musc.postprocessing import spotify_create_notes
 
 
 class PitchEstimator(nn.Module):
